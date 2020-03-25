@@ -9,7 +9,7 @@ def get_python_from_html(address):
    try:
       r = requests.get(address)
       word_count = r.text.lower().count('python')
-      return {'status_code': r.status_code,'word_count': r.text.lower().count('python')}
+      return {'status_code': r.status_code,'words_count': r.text.lower().count('python')}
    except:
-      return {'status_code': 'error','word_count': ''}
+      return {'status_code': 'error','words_count': None}
    

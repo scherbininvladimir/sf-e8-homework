@@ -27,5 +27,3 @@ class Tasks(db.Model):
     timestamp = db.Column(db.DateTime())
     task_status = db.Column(db.Enum(TaskStatus))
     http_status = db.Column(db.Integer)
-
-
