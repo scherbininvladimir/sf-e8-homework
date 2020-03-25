@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+    db:
+        image: postgress
+        environment: 
+            POSTGRES_PASSWORD: Ab12345678
+        
+        ports:
+            - 5432:5423
