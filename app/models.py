@@ -1,12 +1,13 @@
+import time
 from flask import Flask
 import enum
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://skillfactory_user:skillfactory_password@localhost/skillfactory_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:Ab12345678@sf-e8-db/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+time.sleep(5) # Ждем запуска контейнера с postgres
 db = SQLAlchemy(app)
 
 class Results(db.Model):

@@ -1,0 +1,8 @@
+FROM python:3.7.6
+COPY ./requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install -r requirements.txt
+COPY ./app/results_handler.py /app/results_handler.py
+COPY ./app/models.py /app/models.py
+ENTRYPOINT ["python"]
+CMD ["results_handler.py"]

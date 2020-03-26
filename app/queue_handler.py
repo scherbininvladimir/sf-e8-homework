@@ -25,6 +25,6 @@ def run_queue():
         db.session.commit()
 
 if __name__ == '__main__':
-    writer = nsq.Writer(['127.0.0.1:4150'])
+    writer = nsq.Writer(['sf-e8-nsqd:4150'])
     tornado.ioloop.PeriodicCallback(run_queue, 10000).start()
     nsq.run()

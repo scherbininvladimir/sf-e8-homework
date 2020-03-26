@@ -1,10 +1,73 @@
 version: '3.3'
 
 services:
+    flask:
+        container_name: sf-e8-flask
+        build:
+            context: .
+            dockerfile: Dockerfile-flask
+        ports: 
+            - 5001:5001
+        depends_on:
+            - db
+            - celery
+
+    celery:
+        container_name: sf-e8-celery
+        build:
+            context: .
+            dockerfile: Dockerfile-celery
+        depends_on: 
+            - redis
+
     db:
-        image: postgress
+        container_name: sf-e8-db
+        image: postgres
         environment: 
             POSTGRES_PASSWORD: Ab12345678
-        
+
+    redis:
+        container_name: sf-e8-redis
+        image: redis
+
+    queue-hadler:
+        container_name: sf-e8-queue-handler
+        build:
+            context: .
+            dockerfile: Dockerfile-queue-handler
+        depends_on:
+            - nsqd
+            - celery
+
+    results-handler:
+        container_name: sf-e8-results-handler
+        build:
+            context: .
+            dockerfile: Dockerfile-results-handler
+        depends_on: 
+            - nsqd
+
+    nsqlookupd:
+        container_name: sf-e8-nsqlookupd
+        image: nsqio/nsq
+        command: /nsqlookupd
         ports:
-            - 5432:5423
+            - 4160
+            - 4161
+    nsqd:
+        container_name: sf-e8-nsqd
+        image: nsqio/nsq
+        command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+        depends_on:
+            - nsqlookupd
+        ports:
+            - 4150
+            - 4151
+    nsqadmin:
+        container_name: sf-e8-nsqadmin
+        image: nsqio/nsq
+        command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+        depends_on:
+            - nsqlookupd  
+        ports:
+            - "4171:4171"

@@ -1,7 +1,7 @@
 from celery import Celery
 import requests
 
-app = Celery('example', broker='redis://localhost', backend='redis://localhost')
+app = Celery('example', broker='redis://sf-e8-redis', backend='redis://sf-e8-redis')
 
 @app.task
 def get_python_from_html(address):
@@ -12,4 +12,3 @@ def get_python_from_html(address):
       return {'status_code': r.status_code,'words_count': r.text.lower().count('python')}
    except:
       return {'status_code': 'error','words_count': None}
-   

@@ -1,0 +1,9 @@
+FROM python:3.7.6
+COPY ./requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install -r requirements.txt
+COPY ./app/queue_handler.py /app/queue_handler.py
+COPY ./app/models.py /app/models.py
+COPY ./app/get_python_from_html.py /app/get_python_from_html.py
+ENTRYPOINT ["python"]
+CMD ["queue_handler.py"]

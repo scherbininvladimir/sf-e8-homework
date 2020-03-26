@@ -21,7 +21,7 @@ def handler(message):
     return True
 
 r = nsq.Reader(message_handler=handler,
-        nsqd_tcp_addresses=['127.0.0.1:4150'],
+        nsqd_tcp_addresses=['sf-e8-nsqd:4150'],
         topic='python', 
         channel='channel', lookupd_poll_interval=15)
 

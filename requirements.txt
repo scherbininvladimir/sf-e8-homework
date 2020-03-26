@@ -1,0 +1,8 @@
+celery
+flask
+flask_sqlalchemy
+psycopg2
+redis
+requests
+tornado==4.5.3
+pynsq
